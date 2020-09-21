@@ -1,2 +1,3 @@
 # spring-boot-websocket
-Example websocket server in Kotlin
+
+Example Spring Boot WebSocket implementation.

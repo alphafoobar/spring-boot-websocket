@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: spring-websocket
+  main:
+    banner-mode: "off"
+  jackson:
+    default-property-inclusion: non_empty
+  profiles:
+    active: localhost
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://test.auth0.com/
+          audience: https://test-ws.websocket.com
