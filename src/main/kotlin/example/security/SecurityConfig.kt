@@ -1,6 +1,5 @@
 package example.security
 
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest
 import org.springframework.context.annotation.Bean
@@ -9,7 +8,11 @@ import org.springframework.security.config.annotation.web.reactive.EnableWebFlux
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator
 import org.springframework.security.oauth2.core.OAuth2TokenValidator
-import org.springframework.security.oauth2.jwt.*
+import org.springframework.security.oauth2.jwt.Jwt
+import org.springframework.security.oauth2.jwt.JwtValidators
+import org.springframework.security.oauth2.jwt.NimbusReactiveJwtDecoder
+import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder
+import org.springframework.security.oauth2.jwt.ReactiveJwtDecoders
 import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter
 
@@ -37,7 +40,7 @@ class SecurityConfig(
     }
 
     @Bean
-    open fun jwtDecoder(): ReactiveJwtDecoder {
+    fun jwtDecoder(): ReactiveJwtDecoder {
         val jwtDecoder = ReactiveJwtDecoders.fromOidcIssuerLocation(issuerUri) as NimbusReactiveJwtDecoder
         jwtDecoder.setJwtValidator(DelegatingOAuth2TokenValidator(withIssuer(), audienceValidator()))
         return jwtDecoder
